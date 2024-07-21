@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Not Found</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<style>
+body {
+  background-color: #f0f0f0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+}
+
+.eyes {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.eye {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: 2px solid black;
+  border-radius: 50%;
+  margin: 0 10px;
+  position: relative;
+}
+
+@keyframes roll {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.pupil {
+  width: 20px;
+  height: 20px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: roll 2s linear infinite;
+}
+
+h1 {
+  font-size: 3em;
+  color: #333;
+}
+
+p {
+  color: #666;
+}
+
+a {
+  color: #3498db;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+</style>
+<body>
+  <div class="container">
+    <div class="eyes">
+      <div class="eye">
+        <div class="pupil" id="pupil-left"></div>
+      </div>
+      <div class="eye">
+        <div class="pupil" id="pupil-right"></div>
+      </div>
+    </div>
+    <h1>404 Not Found</h1>
+    <p>The page you are looking for does not exist.</p>
+    <a href="/">Go back to the homepage</a>
+    <p id="toggle-text">Press Space for Cool Feature</p>
+<center>
+  <p id="styles" style="display:none;">Did you mean to go to <a href="/styles.css">styles.css</a>?</p>
+  <p id="scripts" style="display: none;"> Did you mean to go to <a href="/script.js">script.js</a>?</p>
+  <p id="privacy-policy" style="display: none;">Did you mean to go to <a href="/privacy-policy.html">privacy-policy.html</a>?</p>
+  <p id="terms" style="display:none;">Did you mean to go to <a href="/terms-of-use.html">Terms of Use</a>?</p>
+</center>
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {	
+      const url = window.location.pathname;
+      if (url.includes('styles')) {
+        document.getElementById('styles').style.display = "block";
+      }
+      if (url.includes('script')) {
+        document.getElementById('scripts').style.display = "block";
+      }
+      if (url.includes('privacy-policy')) {
+        document.getElementById('privacy-policy').style.display = "block";
+      }
+      if (url.includes('terms-of-use')) {
+        document.getElementById('terms').style.display = "block";
+      }
+    });
+
+
+
+  let isCoolFeatureEnabled = false;
+
+  document.addEventListener('mousemove', (event) => {
+    if (!isCoolFeatureEnabled) return;
+    const eyes = document.querySelectorAll('.eye');
+    eyes.forEach(eye => {
+      const rect = eye.getBoundingClientRect();
+      const eyeCenterX = rect.left + rect.width / 2;
+      const eyeCenterY = rect.top + rect.height / 2;
+
+      const angle = Math.atan2(event.clientY - eyeCenterY, event.clientX - eyeCenterX);
+      const maxMoveDistance = (rect.width / 2) - 10;
+      const pupilX = eyeCenterX + maxMoveDistance * Math.cos(angle);
+      const pupilY = eyeCenterY + maxMoveDistance * Math.sin(angle);
+  
+      const pupil = eye.querySelector('.pupil');
+      pupil.style.left = `${pupilX - rect.left}px`;
+      pupil.style.top = `${pupilY - rect.top}px`;
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+      isCoolFeatureEnabled = !isCoolFeatureEnabled;
+      const toggleText = document.getElementById('toggle-text');
+        if (isCoolFeatureEnabled) {
+          toggleText.innerHTML = 'Press Space to Exit Cool Feature';
+        } else {
+          toggleText.innerHTML = 'Press Space for Cool Feature';
+        }
+    }
+  });
+  let keysPressed = {};
+  
+  document.addEventListener('keydown', (event) => {
+    keysPressed[event.code] = true;
+  
+    if (keysPressed['KeyQ'] && keysPressed['KeyR']) {
+      triggerConfetti();
+    }
+  });
+
+  document.addEventListener('keyup', (event) => {
+    delete keysPressed[event.code];
+  });
+
+  function triggerConfetti() {
+    confetti({
+      particleCount: 1000,
+      spread: 200,
+      origin: { y: 0.6 }
+    });
+  
+    const easterEgg = document.createElement('div');
+    easterEgg.innerText = 'EASTER EGG!';
+    easterEgg.style.position = 'fixed';
+    easterEgg.style.top = '50%';
+    easterEgg.style.left = '50%';
+    easterEgg.style.transform = 'translate(-50%, -50%)';
+    easterEgg.style.backgroundColor = 'yellow';
+    easterEgg.style.padding = '20px';
+    easterEgg.style.fontSize = '2em';
+    easterEgg.style.zIndex = '1000';
+    document.body.appendChild(easterEgg);
+  
+    setTimeout(() => {
+      easterEgg.remove();
+    }, 3000); // Remove after 3 seconds
+  }
+</script>
+</body>
+</html>

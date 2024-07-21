@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TurboChat</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="/turbochat_favicon.png" type="image/png">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>      
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="terms-of-use.html">Terms of Use</a></li>
+      </ul>
+    </nav>
+  </header><BR>
+  <center><h1>TurboChat</h1><br><h3>The only fast chatting server in the history of the world</h3></center>
+  
+  <div class="warning">WARNING: Your connection to this site is not secure.</div>
+  <div class="warning">WARNING: Your data is automatically saved by default. Press "Do not remember me" to avoid unauthorized access to your credentials.</div>
+  <div class="warning">NOTE: We have updated our <a href="/privacy-policy.html">Privacy Policy</a>. Please review them now.</div>
+  <div id="signup">
+    <h1>Signup</h1>
+    <input type="text" id="signup-username" placeholder="Enter your username">
+    <input type="password" id="signup-password" placeholder="Enter your password">
+    <button onclick="signup()">Signup</button>
+  </div>
+  <div id="login">
+    <h1>Login</h1>
+    <input type="text" id="login-username" placeholder="Enter your username">
+    <input type="password" id="login-password" placeholder="Enter your password">
+    <label>
+      <input type="checkbox" id="do-not-remember-me"> Do not remember me
+    </label>
+    <button onclick="login()">Login</button>
+  </div>
+ <div id="chat" style="display:none;">
+  <h1>Chat</h1>
+  <div>
+    <span id="current-user"></span>
+    <button onclick="logout()">Logout</button>
+  </div>
+  <div>
+    <h2>Online Users</h2>
+    <ul id="online-users"></ul>
+  </div>
+  <input type="text" id="to" placeholder="Send to">
+  <input type="text" id="message" placeholder="Enter message">
+  <button onclick="sendMessage()">Send</button>
+  <div id="messages"></div>
+  <div id="typing-indicator" style="display: none;"></div>
+</div>
+    <div id="footer">Copyright &copy; 2024 by TurboCHAT. All rights reserved. By using our services, you agree to the <a href="/privacy-policy.html">Privacy Policy.</a></div>
+  <div id="notifications" class="notifications"></div>
+  <script src="script.js"></script>
+</body>
+</html>
